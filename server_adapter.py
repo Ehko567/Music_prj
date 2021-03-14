@@ -2,9 +2,9 @@ from flask import Flask, render_template, redirect
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from sqlalchemy import sql
 
-
 from data import db_session
 from data.login_form import LoginForm
+from data.reg_form import RegForm
 from data.musics import Music
 from data.users import User
 from data.playlists import Playlist
@@ -35,6 +35,16 @@ def login():
                                message="Неправильный логин или пароль",
                                form=form)
     return render_template('login.html', title='Авторизация', form=form)
+
+
+@app.route('/reg', methods=['GET', 'POST'])
+def reg():
+    form = RegForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        #ну тут типа будет занесение пользователя в орм
+    return render_template('registration.html', title='Регистрация', form=form)
+
 
 @app.route('/')
 def index():
