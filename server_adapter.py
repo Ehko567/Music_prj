@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from sqlalchemy import sql
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from data import db_session
 from data.login_form import LoginForm
@@ -27,7 +28,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        user = db_sess.query(User).filter(User.email == form.email.data).first()
+        user = db_sess.query(User).filter(User.login == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
@@ -42,7 +43,11 @@ def reg():
     form = RegForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        #ну тут типа будет занесение пользователя в орм
+        user = User()
+        user.login = form.login.data
+        user.set_password(form.password.data)
+        db_sess.add(user)
+        db_sess.commit()
     return render_template('registration.html', title='Регистрация', form=form)
 
 
@@ -54,8 +59,10 @@ def index():
 
 
 def main():
+    db_session.global_init('db/music_db.db')
     app.run()
 
 
 if __name__ == '__main__':
     main()
+

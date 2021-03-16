@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, EqualTo
 
 
 class RegForm(FlaskForm):
-    email = StringField('Логин', validators=[DataRequired()])
+    login = StringField('Логин', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     second_password = PasswordField('Повторите пароль', validators=[DataRequired(),
                                                                     EqualTo(fieldname='password',
