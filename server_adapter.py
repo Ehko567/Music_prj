@@ -55,7 +55,7 @@ def reg():
 def index():
     if not current_user.is_authenticated:
         return redirect('/login')
-    return render_template('base.html')
+    return render_template('main.html')
 
 
 def main():
