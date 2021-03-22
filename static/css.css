@@ -1,0 +1,17 @@
+.button_music {
+  display: block;
+  height: 300px;
+  width: 300px;
+  color: black;
+  font-weight: 700;
+  text-decoration: none;
+  user-select: none;
+  padding: .5em 2em;
+  outline: none;
+  border: 2px solid;
+  border-radius: 1px;
+  transition: 0.2s;
+} 
+.button_music:hover { background: rgba(255,255,255,.2); color: black;}
+.button_music:active { background: white; color: black;}
+.button_music:visited {background: white; color: black;}

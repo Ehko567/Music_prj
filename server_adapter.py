@@ -55,8 +55,11 @@ def reg():
 def index():
     if not current_user.is_authenticated:
         return redirect('/login')
-    return render_template('main.html')
+    return render_template('base.html')
 
+@app.route('/test')
+def test():
+    return render_template('base.html')
 
 def main():
     db_session.global_init('db/music_db.db')

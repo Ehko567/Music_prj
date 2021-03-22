@@ -10,4 +10,6 @@ class Music(SqlAlchemyBase):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     file_path = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    owner_id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
+    playlists = orm.relation('Playlist',
+                          secondary='association_playlist_to_music',
+                          back_populates='musics')
